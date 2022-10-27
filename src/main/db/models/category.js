@@ -9,6 +9,13 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      category.hasMany(models.menuItem, {
+        onDelete: "restrict",
+        foreignKey: {
+          name: "categoryId",
+          allowNull: false,
+        },
+      });
     }
   }
   category.init(
