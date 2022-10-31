@@ -48,11 +48,10 @@ exports.updateMenuItem = async (req, res, next) => {
   const transaction = await sequelize.transaction();
   try {
     const valid = await ReqValidator.validate(req, res, {
-      name: "required|string",
-      description: "required|string",
-      image: "required|string",
-      price: "required",
-      categoryId: "required|integer",
+      name: "string",
+      description: "string",
+      image: "string",
+      categoryId: "integer",
     });
     if (!valid) return;
     const data = {

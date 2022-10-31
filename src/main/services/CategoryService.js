@@ -12,6 +12,10 @@ exports.getCategories = async () => {
   return db.category.findAll();
 };
 
+exports.getItemsBasedOnCategories = async (data) => {
+  return db.category.findAll(data);
+};
+
 exports.getCategory = async (data) => {
   return db.category.findByPk(data);
 };

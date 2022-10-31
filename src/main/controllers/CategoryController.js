@@ -1,4 +1,5 @@
 const { sequelize } = require("../db/models");
+const db = require("../db/models");
 
 const categoryService = require("../services/CategoryService");
 
@@ -35,6 +36,21 @@ exports.getCategories = async (req, res, next) => {
   }
 };
 
+exports.getItemsPerCategoryBasedOnTitle = async (req, res, next) => {
+  try {
+    const items = await categoryService.getItemsBasedOnCategories({
+      where: { name: req.params.title },
+      include: [{ model: db.menuItem }],
+    });
+    res.status(200).json(items);
+  } catch (err) {
+    res.json({
+      message: err,
+    });
+    next(err);
+  }
+};
+
 exports.updateCategory = async (req, res, next) => {
   const transaction = await sequelize.transaction();
   try {
@@ -52,11 +68,9 @@ exports.updateCategory = async (req, res, next) => {
 
     if (!category) {
       await transaction.commit();
-      return res
-        .status(200)
-        .json({
-          message: `Category ${categoryId} does not exist in our database`,
-        });
+      return res.status(200).json({
+        message: `Category ${categoryId} does not exist in our database`,
+      });
     }
 
     await categoryService.updateCategory(
@@ -87,11 +101,9 @@ exports.deleteCategory = async (req, res, next) => {
 
     if (!category) {
       await transaction.commit();
-      return res
-        .status(200)
-        .json({
-          message: `Category ${categoryId} does not exist in our database`,
-        });
+      return res.status(200).json({
+        message: `Category ${categoryId} does not exist in our database`,
+      });
     }
 
     await categoryService.deleteCategory(
