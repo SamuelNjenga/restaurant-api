@@ -2,7 +2,7 @@
  * Setup express
  */
 const express = require("express");
-const cookieParser = require("cookie-parser");
+// const cookieParser = require("cookie-parser");
 
 /**
  * Setup Morgan
@@ -45,7 +45,7 @@ const routes = require("./src/main/routes/index");
 const app = express();
 
 app.use(morgan("combined"));
-app.use(cookieParser());
+//app.use(cookieParser());
 
 // app.use(compression())
 
