@@ -9,6 +9,13 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      table.hasMany(models.bookingTable, {
+        onDelete: "restrict",
+        foreignKey: {
+          name: "tableId",
+          allowNull: false,
+        },
+      });
     }
   }
   table.init(
